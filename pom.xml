@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>spring-data-demo</artifactId>
+    <version>1.0</version>
+
+    <dependencies>
+        <!-- spring-data-jpa 可以自动依赖Hibernate核心类库
+            但是自动依赖的核心类库有一定的缺失
+            在启动代码的时候，很可能会抛出ClassNotFoundException
+            如果只是使用spring-data-jpa做数据库访问的话，建议手工导入Hibernate依赖
+            如果使用spring-boot-stater-xxx，可以自动依赖Hibernate，不会存在类丢失问题
+         -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>1.11.14.RELEASE</version>
+        </dependency>
+        <!-- 手工导入Hibernate依赖 -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>5.2.16.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.2.16.Final</version>
+        </dependency>
+        <!-- c3p0就是为了提供一个datasource数据源的  -->
+        <dependency>
+            <groupId>com.mchange</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.38</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>4.3.18.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>
