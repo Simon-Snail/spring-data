@@ -20,14 +20,19 @@ public interface UsersDaoExtendsRepository extends Repository<Users, Integer> {
 	List<Users> findByUsernameAndUserageGreaterThanEqual(String name, Integer age);
 
 	// 基于@Query注解查询 - JPQL
-	@Query("select new Users(username, userage) from Users")
-	List<Object> queryTest();
 	@Query(value = "from Users where username = :username")
 	List<Users> queryUserByNameUseJPQL(@Param("username") String name);
 	@Query("from Users where username like :username")
 	List<Users> queryUserByLikeNameUseJPQL(@Param("username") String name);
 	@Query("from Users where username = :username and userage >= :userage")
 	List<Users> queryUserByNameAndAge(@Param("username") String name, @Param("userage") Integer age);
+
+	@Query(value = "select new Users(username, userage) from Users")
+	List<Users> queryUserJPQL();
+
+	//投影查询
+	@Query("select username, userage from Users")
+	List<Object> queryTest();
 
 	// 基于@Query注解查询 - SQL
 	// nativeQuery:代表value属性的值是否是本地查询，也就是value属性的值是否是SQL。默认为false。

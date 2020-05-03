@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -67,16 +68,23 @@ public class RepositoryTest {
 		for (Users users : list) {
 			System.out.println(users);
 		}
-		System.out.println("================================");
+		System.out.println("==============投影查询==================");
 		List l = this.usersDao.queryTest();
 		System.out.println(l);
 		for(Object o : l){
 			System.out.println(o);
 			System.out.println(o.getClass().getName());
-			// System.out.println(Arrays.toString(((Object[])o)));
+			System.out.println(Arrays.toString(((Object[]) o)));
 		}
 	}
 
+	@Test
+	public void queryUserJPQL(){
+		List<Users> list = this.usersDao.queryUserJPQL();
+		for (Users users : list) {
+			System.out.println(users);
+		}
+	}
 	/**
 	 * 测试@Query查询 JPQL
 	 */
@@ -137,7 +145,7 @@ public class RepositoryTest {
 	 * 事务问题
 	 * @Transactional(1.8.x) - 当前方法有事务环境。如果注解描述的是非测试代码，则代表方法执行成功提交事务，执行失败回滚事务。
 	 *  如果注解描述的是测试方法，所有的事务都会回滚。
-	 *  那么如果在测试方法中需要使用事务的话，定义@Rollback(false)代表取消回滚策略。使用提交策略。
+	 *  那么如果在测试方法中需要使用事务的话，定义@Rollback(false)代表取消回滚策略。使用提交策略。默认是true
 	 * @Transactional(1.11.x) - 测试方法和其他方法，事务管理逻辑都是方法执行成功提交事务，方法执行失败回滚事务。
 	 */
 	@Test
@@ -152,7 +160,6 @@ public class RepositoryTest {
 	 */
 	@Test
 	@Transactional
-	@Rollback(false)
 	public void test11(){
 		this.usersDao.deleteUserById(1);
 	}
@@ -162,7 +169,6 @@ public class RepositoryTest {
 	 */
 	@Test
 	@Transactional
-	@Rollback(false)
 	public void test12(){
 		this.usersDao.saveUser("张三", 20);
 	}
